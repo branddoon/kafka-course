@@ -4,7 +4,7 @@ spring:
 ---
 spring:
   kafka:
-    topic: topic-course-2
+    topic: topic-course-1
 ---
 spring:
   kafka:
