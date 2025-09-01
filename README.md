@@ -51,3 +51,6 @@ Execute following commands
 - kafka-topics --bootstrap-server localhost:9092 --alter --topic topic-course-1 --partitions 40
 ### List consumer groups
 - kafka-consumer-groups --bootstrap-server localhost:9092 --list
+
+## Credits
+This proyect used code of [kafka-for-developers-using-spring-boot-v2][https://github.com/dilipsundarraj1/kafka-for-developers-using-spring-boot-v2/tree/main] by the author @Dilip Sundarraj
