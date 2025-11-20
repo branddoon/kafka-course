@@ -1,0 +1,20 @@
+{
+  "type": "record",
+  "name": "EventMessage",
+  "namespace": "com.kafka.course.avro",
+  "fields": [
+    { "name": "id", "type": "int" },
+    {
+      "name": "messageEventType",
+      "type": {
+        "type": "record",
+        "name": "MessageEventType",
+        "fields": [
+          { "name": "message",   "type": "string" },
+          { "name": "addressee", "type": "string" },
+          { "name": "sender",    "type": "string" }
+        ]
+      }
+    }
+  ]
+}

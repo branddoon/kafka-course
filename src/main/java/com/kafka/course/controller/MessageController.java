@@ -1,7 +1,7 @@
 package com.kafka.course.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.kafka.course.model.MessageEvent;
+import com.kafka.course.avro.EventMessage;
 import com.kafka.course.producer.MessageProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,9 +23,9 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<Void> send(@RequestBody MessageEvent messageEvent) throws JsonProcessingException {
-        log.info("Message: {}", messageEvent);
-        mp.sendMessage(messageEvent);
+    public ResponseEntity<Void> send(@RequestBody EventMessage eventMessage) throws JsonProcessingException {
+        log.info("Message: {}", eventMessage);
+        mp.send(eventMessage);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
