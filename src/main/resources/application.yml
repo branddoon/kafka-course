@@ -4,28 +4,43 @@ spring:
 ---
 spring:
   kafka:
-    topic: topic-course-1
+    topic: topic2
 ---
 spring:
   kafka:
+    bootstrap-servers: 172.26.25.56:9095
     producer:
-      boostrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        security.protocol: SASL_SSL
+        sasl.mechanism: GSSAPI
+        sasl.kerberos.service.name: kafka
+        sasl.jaas.config: >
+          com.sun.security.auth.module.Krb5LoginModule required
+          useKeyTab=true
+          keyTab="tmp/writer.user.keytab"
+          principal="writer@KAFKA.SECURE"
+          storeKey=true
+          doNotPrompt=true
+          isInitiator=true;
+        ssl.truststore.location: tmp/kafka.client.truststore.jks
+        ssl.truststore.password: password
     consumer:
-      boostrap-servers: localhost:9092
       key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: message-group-1
----
-spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-  jpa:
-    database: h2
-    database-platform: org.hibernate.dialect.H2Dialect
-    generate-ddl: true
-  h2:
-    console:
-      enabled: true
+      properties:
+        security.protocol: SASL_SSL
+        sasl.mechanism: GSSAPI
+        sasl.kerberos.service.name: kafka
+        sasl.jaas.config: >
+          com.sun.security.auth.module.Krb5LoginModule required
+          useKeyTab=true
+          keyTab="tmp/reader.user.keytab"
+          principal="reader@KAFKA.SECURE"
+          storeKey=true
+          doNotPrompt=true
+          isInitiator=true;
+        ssl.truststore.location: tmp/kafka.client.truststore.jks
+        ssl.truststore.password: password

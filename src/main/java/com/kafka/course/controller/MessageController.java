@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
 @RequestMapping("/api")
 @RestController
 @Slf4j
@@ -23,7 +26,7 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<Void> send(@RequestBody MessageEvent messageEvent) throws JsonProcessingException {
+    public ResponseEntity<Void> send(@RequestBody MessageEvent messageEvent) throws JsonProcessingException, ExecutionException, InterruptedException, TimeoutException {
         log.info("Message: {}", messageEvent);
         mp.sendMessage(messageEvent);
         return ResponseEntity.status(HttpStatus.OK).body(null);
